@@ -73,6 +73,17 @@ class Instrument:
         else:
             return False
 
+class Image(Instrument):
+    def __init__(self, attr, name, icon="mdi:file-image"):
+        super().__init__(component="image", attr=attr, name=name, icon=icon)
+        self.device_class = None
+        self.unit = None
+        self.convert = False
+
+    @property
+    def is_mutable(self):
+        return False
+
 
 class Sensor(Instrument):
     def __init__(self, attr, name, icon, unit=None, device_class=None):
@@ -1514,15 +1525,13 @@ def create_instruments():
             icon="mdi:map-marker-distance",
             unit="km",
         ),
-        Sensor(
+        Image(
             attr="model_image_large",
             name="Model image URL (Large)",
-            icon="mdi:file-image",
         ),
-        Sensor(
+        Image(
             attr="model_image_small",
             name="Model image URL (Small)",
-            icon="mdi:file-image",
         ),
         Sensor(
             attr="pheater_status",
